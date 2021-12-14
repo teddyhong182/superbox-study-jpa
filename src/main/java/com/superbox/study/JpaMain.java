@@ -15,10 +15,12 @@ public class JpaMain {
         tx.begin();
         try {
             Member member = new Member();
-            member.setId(1L);
-            member.setName("HelloA");
+            member.setId(10L);
+            member.setName("HelloJPA");
 
+            System.out.println("=== BEFORE ===");
             em.persist(member);
+            System.out.println("=== AFTER ===");
 
             tx.commit();
         } catch (Exception e) {
