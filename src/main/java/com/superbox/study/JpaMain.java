@@ -14,11 +14,11 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            Member member = new Member(200L, "member200");
+            Member member = new Member();
+
+            member.setName("MemberJPA100");
 
             em.persist(member);
-
-            em.flush();
 
             System.out.println("=======");
             tx.commit();
