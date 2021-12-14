@@ -23,6 +23,7 @@ public class JpaMain {
             System.out.println("=================");
 
 
+
             System.out.println("=======");
             tx.commit();
         } catch (Exception e) {
