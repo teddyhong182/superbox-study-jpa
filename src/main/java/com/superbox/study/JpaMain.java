@@ -14,19 +14,13 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-            Member member = new Member();
-            member.setId(101L);
-            member.setName("HelloJPA");
+            Member member = new Member(200L, "member200");
 
-            System.out.println("=== BEFORE ===");
             em.persist(member);
-            System.out.println("=== AFTER ===");
 
+            em.flush();
 
-            Member findMember = em.find(Member.class, 101L);
-            System.out.println("findMember.id = " + findMember.getId());
-            System.out.println("findMember.name = " + findMember.getName());
-
+            System.out.println("=======");
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
