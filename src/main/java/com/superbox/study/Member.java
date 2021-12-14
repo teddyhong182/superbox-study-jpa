@@ -10,7 +10,7 @@ import java.util.Date;
 @SequenceGenerator(
         name = "MEMBER_SEQ_GENERATOR",
         sequenceName = "MEMBER_SEQ",
-        initialValue = 1, allocationSize = 1
+        initialValue = 1, allocationSize = 50 // 성능 최적화를 위해 사용 함
 )
 public class Member {
 
