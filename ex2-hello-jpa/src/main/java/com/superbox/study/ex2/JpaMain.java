@@ -5,6 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.swing.plaf.metal.MetalMenuBarUI;
+import java.util.List;
 
 public class JpaMain {
 
@@ -30,13 +31,11 @@ public class JpaMain {
             em.clear(); // select query 발생 시킴
 
             Member findMember = em.find(Member.class, member.getId());
-            Team findTeam = findMember.getTeam();
+            List<Member> members = findMember.getTeam().getMembers();
 
-            System.out.println("findTeam.name = " + findTeam.getName());
-
-            Team newTeam = em.find(Team.class, 100L);
-            findMember.setTeam(newTeam);
-
+            for (Member m : members) {
+                System.out.println("m = " + m.getUsername());
+            }
             System.out.println("====BEFORE COMMIT ===");
             tx.commit();
         } catch (Exception e) {
