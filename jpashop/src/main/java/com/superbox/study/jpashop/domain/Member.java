@@ -1,9 +1,8 @@
 package com.superbox.study.jpashop.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Member {
@@ -16,6 +15,10 @@ public class Member {
     private String city;
     private String street;
     private String zipcode;
+
+    // 굳이 orders 를 추가 할 필요는 없다. 어디까지 처리하고 끈어야 할 지를 고민 order 만으로도 주문 정보를 가져 올 수 있음
+    @OneToMany(mappedBy = "member")
+    private List<Order> orders = new ArrayList<>();
 
     public Long getId() {
         return id;
