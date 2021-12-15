@@ -15,6 +15,7 @@ public class Member {
 //    @Column(name = "TEAM_ID")
 //    private Long teamId;
 
+    // 외래 키가 있는 곳을 주인으로 정해라
     @ManyToOne
     @JoinColumn(name = "TEAM_ID")
     private Team team;
