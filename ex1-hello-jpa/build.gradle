@@ -5,6 +5,10 @@ plugins {
 group 'com.superbox.study'
 version '1.0-SNAPSHOT'
 
+//sourceSets.main.output.resourcesDir = sourceSets.main.java.outputDir
+//sourceSets.test.output.resourcesDir = sourceSets.test.java.outputDir
+
+
 repositories {
     mavenCentral()
 }
