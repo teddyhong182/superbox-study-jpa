@@ -4,7 +4,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import javax.swing.plaf.metal.MetalMenuBarUI;
 import java.util.List;
 
 public class JpaMain {
@@ -26,13 +25,13 @@ public class JpaMain {
 
             Member member = new Member();
             member.setUsername("member1");
-            member.setTeam(team);
             em.persist(member);
 
+            team.addMember(member);
+
             // 이걸 하지 않으면 findMember.getTeam().getMembers() 조회 쿼리가 미발생 (데이터가 없음)
-            team.getMembers().add(member);  // 양방향 연관관계 일 경우는 양 쪽 다 데이터 셋팅
-//            em.flush(); // insert query 발생
-//            em.clear(); // select query 발생 시킴
+            em.flush(); // insert query 발생
+            em.clear(); // select query 발생 시킴
 
             Member findMember = em.find(Member.class, member.getId());
             // 지연 로딩 (선언 하지 않아도 지연 로딩 됨)
