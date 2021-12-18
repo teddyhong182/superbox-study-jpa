@@ -14,7 +14,14 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
+
         try {
+
+            Movie movie = new Movie();
+            movie.setDirector("AAA");
+            movie.setActor("BBB");
+            movie.setName("바람과함께사라지다");
+            movie.setPrice(2000);
 
             tx.commit();
         } catch (Exception e) {
