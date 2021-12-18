@@ -1,6 +1,5 @@
 package com.superbox.study.jpashop;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
 import com.superbox.study.jpashop.domain.Order;
 import com.superbox.study.jpashop.domain.OrderItem;
 
