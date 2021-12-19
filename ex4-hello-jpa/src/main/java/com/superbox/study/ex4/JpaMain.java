@@ -28,9 +28,10 @@ public class JpaMain {
             em.flush();
             em.clear();
 
+            // 조인 후 쿼리 실행
             Member m = em.find(Member.class, member1.getId());
 
-            // 프록시 객체 조회
+            // 프록시가 아닌 초기화 된 객체
             System.out.println("m = " + m.getTeam().getClass());
 
             // 이 시점에 쿼리 실행
