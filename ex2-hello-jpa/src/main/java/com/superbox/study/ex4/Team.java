@@ -1,4 +1,4 @@
-package com.superbox.study.ex2;
+package com.superbox.study.ex4;
 
 import javax.persistence.*;
 import java.util.ArrayList;

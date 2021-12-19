@@ -1,11 +1,9 @@
-package com.superbox.study.ex2;
+package com.superbox.study.ex4;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.lang.management.MemoryPoolMXBean;
-import java.util.List;
 
 public class JpaMain {
 
