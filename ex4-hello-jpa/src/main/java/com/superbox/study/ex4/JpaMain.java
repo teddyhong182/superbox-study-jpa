@@ -16,22 +16,22 @@ public class JpaMain {
 
         try {
 
-            Member member = new Member();
-            member.setUsername("Hello");
+            Member member1 = new Member();
+            member1.setUsername("member1");
+            em.persist(member1);
 
-            em.persist(member);
+            Member member2 = new Member();
+            member2.setUsername("member2");
+            em.persist(member2);
 
             em.flush();
             em.clear();
 
-//            Member findMember = em.find(Member.class, member.getId());
+            Member m1 = em.find(Member.class, member1.getId());
+            Member m2 = em.find(Member.class, member2.getId());
 
-            Member findMember = em.getReference(Member.class, member.getId());  // 엔티티를 사용하는 시점에서 쿼리가 실행
-
-            System.out.println("findMember.getClass() = " + findMember.getClass()); // 이것의 정체는?
-            System.out.println("findMember.id = " + findMember.getId());
-            System.out.println("findMember.username = " + findMember.getUsername());
-
+            // 언제 프록시가 넘어올지 모르니 == 비교는 하면 안된다
+            System.out.println("m1.getClass() == m2.getClass() = " + (m1.getClass() == m2.getClass()));
             tx.commit();
         } catch (Exception e) {
             System.out.println(e.getMessage());
