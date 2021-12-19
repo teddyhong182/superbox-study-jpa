@@ -20,18 +20,17 @@ public class JpaMain {
             member1.setUsername("member1");
             em.persist(member1);
 
-            Member member2 = new Member();
-            member2.setUsername("member2");
-            em.persist(member2);
-
             em.flush();
             em.clear();
 
             Member m1 = em.find(Member.class, member1.getId());
-            Member m2 = em.find(Member.class, member2.getId());
+            System.out.println("m1.getClass() = " + m1.getClass());
 
-            // 언제 프록시가 넘어올지 모르니 == 비교는 하면 안된다
-            System.out.println("m1.getClass() == m2.getClass() = " + (m1.getClass() == m2.getClass()));
+            Member reference = em.getReference(Member.class, member1.getId());
+            System.out.println("reference.getClass() = " + reference.getClass());
+
+            System.out.println("m1 == reference : " + (m1 == reference));
+
             tx.commit();
         } catch (Exception e) {
             System.out.println(e.getMessage());
