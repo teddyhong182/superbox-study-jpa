@@ -23,11 +23,11 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            Member m1 = em.find(Member.class, member1.getId());
-            System.out.println("m1.getClass() = " + m1.getClass());
-
             Member reference = em.getReference(Member.class, member1.getId());
             System.out.println("reference.getClass() = " + reference.getClass());
+
+            Member m1 = em.find(Member.class, member1.getId());
+            System.out.println("m1.getClass() = " + m1.getClass());
 
             System.out.println("m1 == reference : " + (m1 == reference));
 
