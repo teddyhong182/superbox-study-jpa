@@ -23,9 +23,12 @@ public class JpaMain {
             member.setHomeAddress(address);
             em.persist(member);
 
+            // 이렇게 처리해서 보완
+            Address copyAddress = new Address(address.getCity(), address.getStreet(), address.getZipcode());
+
             Member member2 = new Member();
             member2.setUsername("member2");
-            member2.setHomeAddress(address);
+            member2.setHomeAddress(copyAddress);
             em.persist(member2);
 
             member.getHomeAddress().setCity("newCity");
