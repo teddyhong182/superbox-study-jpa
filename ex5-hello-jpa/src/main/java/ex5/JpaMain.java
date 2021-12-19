@@ -23,13 +23,17 @@ public class JpaMain {
             member.setHomeAddress(address);
             em.persist(member);
 
-            // 이렇게 처리해서 보완
-            Address copyAddress = new Address(address.getCity(), address.getStreet(), address.getZipcode());
-
-            Member member2 = new Member();
-            member2.setUsername("member2");
-            member2.setHomeAddress(copyAddress);
-            em.persist(member2);
+            // 그럼 변경이 필요한 경우
+            Address newAddress = new Address("NewCity", address.getStreet(), address.getZipcode());
+            member.setHomeAddress(newAddress);
+//
+//            // 이렇게 처리해서 보완
+//            Address copyAddress = new Address(address.getCity(), address.getStreet(), address.getZipcode());
+//
+//            Member member2 = new Member();
+//            member2.setUsername("member2");
+//            member2.setHomeAddress(copyAddress);
+//            em.persist(member2);
 
             tx.commit();
         } catch (Exception e) {
