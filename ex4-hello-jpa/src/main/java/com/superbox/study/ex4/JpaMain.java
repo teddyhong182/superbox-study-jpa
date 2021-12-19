@@ -26,12 +26,10 @@ public class JpaMain {
             Member reference = em.getReference(Member.class, member1.getId());
             System.out.println("reference.getClass() = " + reference.getClass());   // proxy
 
-            em.detach(reference);
-//            em.close();
+            System.out.println("isLoaded = " + emf.getPersistenceUnitUtil().isLoaded(reference));
 
-            // 오류 발생 실제 프록시를 초기화 할 수 없음
+            // 강제 초기화 호출
             System.out.println("reference.getUsername() = " + reference.getUsername());
-
             tx.commit();
         } catch (Exception e) {
             System.out.println(e.getMessage());
