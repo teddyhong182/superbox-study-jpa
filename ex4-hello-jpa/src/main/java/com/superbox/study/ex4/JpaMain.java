@@ -24,17 +24,17 @@ public class JpaMain {
             em.clear();
 
             Member reference = em.getReference(Member.class, member1.getId());
-            System.out.println("reference.getClass() = " + reference.getClass());
+            System.out.println("reference.getClass() = " + reference.getClass());   // proxy
 
-            Member m1 = em.find(Member.class, member1.getId());
-            System.out.println("m1.getClass() = " + m1.getClass());
+            em.detach(reference);
+//            em.close();
 
-            System.out.println("m1 == reference : " + (m1 == reference));
+            // 오류 발생 실제 프록시를 초기화 할 수 없음
+            System.out.println("reference.getUsername() = " + reference.getUsername());
 
             tx.commit();
         } catch (Exception e) {
             System.out.println(e.getMessage());
-
             tx.rollback();
 
         } finally {
