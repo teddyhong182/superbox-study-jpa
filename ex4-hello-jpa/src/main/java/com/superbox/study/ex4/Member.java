@@ -12,6 +12,18 @@ public class Member {
     @Column(name = "USERNAME")
     private String username;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
     public Long getId() {
         return id;
     }

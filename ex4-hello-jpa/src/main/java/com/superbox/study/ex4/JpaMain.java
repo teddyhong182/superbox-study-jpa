@@ -16,20 +16,40 @@ public class JpaMain {
 
         try {
 
+            Team team1 = new Team();
+            team1.setName("teamA");
+            em.persist(team1);
+
             Member member1 = new Member();
             member1.setUsername("member1");
+            member1.setTeam(team1);
             em.persist(member1);
 
             em.flush();
             em.clear();
 
-            Member reference = em.getReference(Member.class, member1.getId());
-            System.out.println("reference.getClass() = " + reference.getClass());   // proxy
+            Member m = em.find(Member.class, member1.getId());
 
-            System.out.println("isLoaded = " + emf.getPersistenceUnitUtil().isLoaded(reference));
+            // 프록시 객체 조회
+            System.out.println("m = " + m.getTeam().getClass());
 
-            // 강제 초기화 호출
-            System.out.println("reference.getUsername() = " + reference.getUsername());
+            // 이 시점에 쿼리 실행
+            m.getTeam().getName();
+
+//            Member member1 = new Member();
+//            member1.setUsername("member1");
+//            em.persist(member1);
+//
+//            em.flush();
+//            em.clear();
+//
+//            Member reference = em.getReference(Member.class, member1.getId());
+//            System.out.println("reference.getClass() = " + reference.getClass());   // proxy
+//
+//            System.out.println("isLoaded = " + emf.getPersistenceUnitUtil().isLoaded(reference));
+//
+//            // 강제 초기화 호출
+//            System.out.println("reference.getUsername() = " + reference.getUsername());
             tx.commit();
         } catch (Exception e) {
             System.out.println(e.getMessage());
