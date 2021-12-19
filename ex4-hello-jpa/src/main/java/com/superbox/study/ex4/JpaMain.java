@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class JpaMain {
 
@@ -36,6 +37,13 @@ public class JpaMain {
 
             // 이 시점에 쿼리 실행
             m.getTeam().getName();
+
+            // JPQL 에서 N + 1 문제를 발생시킨다.
+            // EAGER 인 경우 조회된 MEMBER 의 TEAM 를 쿼리를 나눠서 조회한다. (조회해야할 TEAM 만큼)
+            List<Member> members = em.createQuery("select m from Member m", Member.class)
+                    .getResultList();
+
+
 
 //            Member member1 = new Member();
 //            member1.setUsername("member1");
