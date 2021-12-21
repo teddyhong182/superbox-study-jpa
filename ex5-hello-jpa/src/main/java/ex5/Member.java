@@ -26,6 +26,9 @@ public class Member {
     )
     private Set<String> favoriteFoods = new HashSet<>();
 
+    // 이 방법으로 처리는 가능하나 경우에 따라 예상치 못한 상황이 발생
+    // Address 만 처리 하기에는 해당 객체를 참조한 키 값이 존재 하지 않음
+//    @OrderColumn(name = "address_history_order")
     @ElementCollection
     @CollectionTable(name = "ADDRESS",
             joinColumns = @JoinColumn(name = "MEMBER_ID")
