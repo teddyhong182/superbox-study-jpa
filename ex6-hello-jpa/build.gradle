@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+}
+
+group 'com.superbox.study'
+version '1.0-SNAPSHOT'
+
+sourceSets.main.output.resourcesDir = sourceSets.main.java.classesDirectory
+sourceSets.test.output.resourcesDir = sourceSets.test.java.classesDirectory
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.hibernate:hibernate-entitymanager:5.6.2.Final'
+    implementation 'com.h2database:h2:2.0.202'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+}
+
+test {
+    useJUnitPlatform()
+}
