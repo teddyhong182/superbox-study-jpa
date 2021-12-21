@@ -25,6 +25,11 @@ public class JpaMainJPQL {
 
             Root<Member> m = query.from(Member.class);
             CriteriaQuery<Member> cq = query.select(m).where(cb.equal(m.get("username"), "kim"));
+
+            String username = "dlkjfd";
+            if (username != null) {
+                cq = cq.where(cb.equal(m.get("username"), "kim"));
+            }
             List<Member> resultList = em.createQuery(cq).getResultList();
 
             for (Member member : resultList) {
