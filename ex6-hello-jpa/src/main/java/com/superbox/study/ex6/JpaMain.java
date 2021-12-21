@@ -18,28 +18,28 @@ public class JpaMain {
             member.setAge(10);
             em.persist(member);
 
-            TypedQuery<Member> query = em.createQuery("select m from Member m where m.username = :username", Member.class);
+            em.flush();
+            em.clear();
 
-            query.setParameter("username", "member1");
-            Member singleResult = query.getSingleResult();
-            System.out.println("singleResult = " + singleResult);
+            // 엔티티 프로젝션 - 영속성 컨텍스트에 관리 됨
+            List<Member> result = em.createQuery("select m From Member m", Member.class).getResultList();
 
-//            TypedQuery<Member> query1 = em.createQuery("select m from Member m", Member.class);
-//
-//            List<Member> resultList = query1.getResultList();
-//
-//            for (Member m : resultList) {
-//
-//            }
-//
-//            // 값이 정확히 하나 인 경우만 사용 가능 (없는 경우 exception, 다수 인 경우 exception)
-//            Member singleResult = query1.getSingleResult();
-//            // spring data jpa -> 없는 경우 정상 처리 가능 함
-//            // 기본 사용시 try catch 필요
-//            System.out.println("singleResult = " + singleResult);
+            Member findMember = result.get(0);
+            findMember.setAge(20);
 
-//            TypedQuery<String> query2 = em.createQuery("select m.username from Member m", String.class);
-//            Query query3 = em.createQuery("select m.username, m.age from Member m");
+            // 엔티티 프로젝션 - 조인된 결과 but 조인된 쿼리를 만드는게 좋음 : 예측 불가
+//            List<Team> teams = em.createQuery("select m.team From Member m", Team.class).getResultList();
+            // 명시적 조인 추천
+            List<Team> teams = em.createQuery("select t From Member m join m.team t", Team.class)
+                    .getResultList();
+
+            // 임베디드 타입 프로젝션
+            List<Address> addresses = em.createQuery("select o.address from Order o", Address.class)
+                    .getResultList();
+
+            // 스칼라 타입 프로젝션
+            em.createQuery("select new com.superbox.study.ex6.MemberDTO(m.username, m.age) from Member m", MemberDTO.class)
+                    .getResultList();
 
             tx.commit();
         } catch (Exception e) {
