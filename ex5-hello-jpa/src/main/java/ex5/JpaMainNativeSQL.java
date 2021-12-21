@@ -16,6 +16,13 @@ public class JpaMainNativeSQL {
         tx.begin();
 
         try {
+
+            Member member = new Member();
+            member.setUsername("member1");
+            em.persist(member);
+
+            // flush => commit, query
+
             em.createNativeQuery("SELECT MEMBER_ID, city, street FROM MEMBER", Member.class)
                     .getResultList();
 
