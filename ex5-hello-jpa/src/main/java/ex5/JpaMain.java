@@ -34,14 +34,20 @@ public class JpaMain {
             System.out.println("============================= START =============================");
             Member findMember = em.find(Member.class, member.getId());
 
+            // 수정은 이렇게 해야 함
             // homeCity -> newCity
             // findMember.getHomeAddress().setCity("newCity");
-            Address a = findMember.getHomeAddress();
-            findMember.setHomeAddress(new Address("newCity", a.getStreet(), a.getZipcode()));
+//            Address a = findMember.getHomeAddress();
+//            findMember.setHomeAddress(new Address("newCity", a.getStreet(), a.getZipcode()));
+//
+//            // 단순한 컬렉션은 이렇게 수정 가능
+//            // 치킨 -> 한식
+//            findMember.getFavoriteFoods().remove("치킨");
+//            findMember.getFavoriteFoods().add("한식");
 
-            // 치킨 -> 한식
-            findMember.getFavoriteFoods().remove("치킨");
-            findMember.getFavoriteFoods().add("한식");
+            // 모든 컬렉션을 모두 지우고 추가 됨 (기대한 상황과 다른 상황이 발생)
+            findMember.getAddressHistory().remove(new Address("old1", "street", "10000"));
+            findMember.getAddressHistory().add(new Address("newCity1", "street", "10000"));
 
             tx.commit();
         } catch (Exception e) {
