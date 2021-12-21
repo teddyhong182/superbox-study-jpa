@@ -23,8 +23,8 @@ public class JpaMain {
             member.getFavoriteFoods().add("족발");
             member.getFavoriteFoods().add("피자");
 
-            member.getAddressHistory().add(new Address("old1", "street", "1001"));
-            member.getAddressHistory().add(new Address("old2", "street", "1001"));
+            member.getAddressHistory().add(new AddressEntity("old1", "street", "1001"));
+            member.getAddressHistory().add(new AddressEntity("old2", "street", "1001"));
 
             em.persist(member);
 
@@ -46,8 +46,10 @@ public class JpaMain {
 //            findMember.getFavoriteFoods().add("한식");
 
             // 모든 컬렉션을 모두 지우고 추가 됨 (기대한 상황과 다른 상황이 발생)
-            findMember.getAddressHistory().remove(new Address("old1", "street", "10000"));
-            findMember.getAddressHistory().add(new Address("newCity1", "street", "10000"));
+
+
+//            findMember.getAddressHistory().remove(new Address("old1", "street", "10000"));
+//            findMember.getAddressHistory().add(new Address("newCity1", "street", "10000"));
 
             tx.commit();
         } catch (Exception e) {
