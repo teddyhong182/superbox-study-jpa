@@ -13,15 +13,19 @@ public class Delivery extends BaseEntity {
     @JoinColumn(name = "order_id")
     private Order order;
 
-
-    private String city;
-    private String street;
-    private String zipcode;
-
+    @Embedded
+    private Address address;
     private DeliveryStatus deliveryStatus;
 
     public Order getOrder() {
         return order;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 }
