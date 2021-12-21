@@ -15,25 +15,33 @@ public class JpaMain {
         tx.begin();
 
         try {
-
-            Address address = new Address("city", "street", "1000");
-
             Member member = new Member();
             member.setUsername("member1");
-            member.setHomeAddress(address);
+            member.setHomeAddress(new Address("city", "street", "1000"));
+
+            member.getFavoriteFoods().add("치킨");
+            member.getFavoriteFoods().add("족발");
+            member.getFavoriteFoods().add("피자");
+
+            member.getAddressHistory().add(new Address("old1", "street", "1001"));
+            member.getAddressHistory().add(new Address("old2", "street", "1001"));
+
             em.persist(member);
 
-            // 그럼 변경이 필요한 경우
-            Address newAddress = new Address("NewCity", address.getStreet(), address.getZipcode());
-            member.setHomeAddress(newAddress);
-//
-//            // 이렇게 처리해서 보완
-//            Address copyAddress = new Address(address.getCity(), address.getStreet(), address.getZipcode());
-//
-//            Member member2 = new Member();
-//            member2.setUsername("member2");
-//            member2.setHomeAddress(copyAddress);
-//            em.persist(member2);
+            em.flush();
+            em.clear();
+
+            System.out.println("============================= START =============================");
+            Member findMember = em.find(Member.class, member.getId());
+
+            // homeCity -> newCity
+            // findMember.getHomeAddress().setCity("newCity");
+            Address a = findMember.getHomeAddress();
+            findMember.setHomeAddress(new Address("newCity", a.getStreet(), a.getZipcode()));
+
+            // 치킨 -> 한식
+            findMember.getFavoriteFoods().remove("치킨");
+            findMember.getFavoriteFoods().add("한식");
 
             tx.commit();
         } catch (Exception e) {
