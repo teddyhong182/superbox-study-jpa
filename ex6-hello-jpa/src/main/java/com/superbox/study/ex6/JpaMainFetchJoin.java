@@ -46,14 +46,17 @@ public class JpaMainFetchJoin {
             em.flush();
             em.clear();
 
-            // SQL distinct 에 추가로 같은 식별자를 가진 Team 엔티티를 제거 해 준다. (결과 : 원래 size = 3, distinct 적용 시 size = 2)
-            // 페치 조인 한계
-            // 1 별칭을 줄수 없다. (where 절 제약)
-            // 2 둘 이상의 컬렉션은 페치 조인 X
-            // 3 페이징 X
-            String qlString = "select distinct t from Team t join fetch t.members";
+            // 페이징이 필요한 경우
+            // @BatchSize(size = 100) option 으로 해결
+            String qlString = "select t from Team t";
+//            // N + 1 쿼리
+//            String qlString = "select t from Team t";
+//            // N : 1 로 쿼리
+//            String qlString = "select m from Member m join fetch m.team";
+//            String qlString = "select distinct t from Team t join fetch t.members";
 
             List<Team> resultList = em.createQuery(qlString, Team.class)
+                    .setFirstResult(0).setMaxResults(10)
                     .getResultList();
 
             for (Team team : resultList) {

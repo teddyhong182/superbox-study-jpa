@@ -1,5 +1,7 @@
 package com.superbox.study.ex6;
 
+import org.hibernate.annotations.BatchSize;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,7 @@ public class Team {
     private Long id;
     private String name;
 
+//    @BatchSize(size = 100)  // 이렇게 사용 또는 global setting (persistence.xml 파일에 추가)
     @OneToMany(mappedBy = "team")
     private List<Member> members = new ArrayList<>();
 
