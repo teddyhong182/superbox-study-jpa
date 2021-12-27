@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.Collection;
 import java.util.List;
 
 public class JpaMainJoin2 {
@@ -35,14 +36,22 @@ public class JpaMainJoin2 {
             em.flush();
             em.clear();
 
-            // inner join 실행 됨
-            String qlString = "select m.team From Member m";
+            // 컬렉션 값 연관 경로 (마지막 값 - 탐색 X)
+            String qlString = "select t.members From Team t";
+            Collection resultList = em.createQuery(qlString, Collection.class)
+                                .getResultList();
 
-            List<Team> resultList = em.createQuery(qlString, Team.class).getResultList();
-
-            for (Team t : resultList) {
-                System.out.println("t = " + t);
+            for (Object o : resultList) {
+                System.out.println("o = " + o);
             }
+            // inner join 실행 됨
+//            String qlString = "select m.team From Member m";
+
+//            List<Team> resultList = em.createQuery(qlString, Team.class).getResultList();
+//
+//            for (Team t : resultList) {
+//                System.out.println("t = " + t);
+//            }
 
             tx.commit();
         } catch (Exception e) {
