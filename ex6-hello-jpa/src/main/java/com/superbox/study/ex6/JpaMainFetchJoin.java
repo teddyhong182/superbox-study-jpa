@@ -46,6 +46,16 @@ public class JpaMainFetchJoin {
             em.flush();
             em.clear();
 
+            // PK 로 조회 됨 where m.id = memberId 와 동일
+            String qlString = "select m from Member m where m = :member";
+
+            Member findMember = em.createQuery(qlString, Member.class)
+                    .setParameter("member", member1)
+                    .getSingleResult();
+
+            System.out.println("findMember = " + findMember);
+
+
 //            // 페이징이 필요한 경우
 //            // @BatchSize(size = 100) option 으로 해결
 //            String qlString = "select t from Team t";
