@@ -37,13 +37,14 @@ public class JpaMainJoin2 {
             em.clear();
 
             // 컬렉션 값 연관 경로 (마지막 값 - 탐색 X)
-            String qlString = "select t.members From Team t";
-            Collection resultList = em.createQuery(qlString, Collection.class)
-                                .getResultList();
+            String qlString = "select t.members.size From Team t";
+            Integer resultList = em.createQuery(qlString, Integer.class)
+                                .getSingleResult();
 
-            for (Object o : resultList) {
-                System.out.println("o = " + o);
-            }
+            System.out.println("resultList = " + resultList);
+//            for (Object o : resultList) {
+//                System.out.println("o = " + o);
+//            }
             // inner join 실행 됨
 //            String qlString = "select m.team From Member m";
 
