@@ -46,15 +46,31 @@ public class JpaMainFetchJoin {
             em.flush();
             em.clear();
 
-            // 지연 로딩 없이 즉시 조인
-            String qlString = "select m from Member m join fetch m.team";
+            //
+            String qlString = "select t from Team t join fetch t.members";
 
-            List<Member> resultList = em.createQuery(qlString, Member.class)
+            List<Team> resultList = em.createQuery(qlString, Team.class)
                     .getResultList();
 
-            for (Member member : resultList) {
-                System.out.println("member.getUsername() = " + member.getUsername() + ", TEAM = " + member.getTeam().getName());
+            for (Team team : resultList) {
+                System.out.println("team.getName() = " + team.getName() + "| member = " + team.getMembers().size());
+
+                for (Member member : team.getMembers()) {
+                    System.out.println("member.username = " + member.getUsername());
+                }
+
             }
+
+
+            // 지연 로딩 없이 즉시 조인
+//            String qlString = "select m from Member m join fetch m.team";
+//
+//            List<Member> resultList = em.createQuery(qlString, Member.class)
+//                    .getResultList();
+//
+//            for (Member member : resultList) {
+//                System.out.println("member.getUsername() = " + member.getUsername() + ", TEAM = " + member.getTeam().getName());
+//            }
 
             // lazy loading (N + 1) 문제 발생
 //            String qlString = "select m from Member m ";
