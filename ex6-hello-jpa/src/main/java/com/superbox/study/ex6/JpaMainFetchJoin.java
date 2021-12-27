@@ -46,27 +46,27 @@ public class JpaMainFetchJoin {
             em.flush();
             em.clear();
 
-            // 페이징이 필요한 경우
-            // @BatchSize(size = 100) option 으로 해결
-            String qlString = "select t from Team t";
-//            // N + 1 쿼리
+//            // 페이징이 필요한 경우
+//            // @BatchSize(size = 100) option 으로 해결
 //            String qlString = "select t from Team t";
-//            // N : 1 로 쿼리
-//            String qlString = "select m from Member m join fetch m.team";
-//            String qlString = "select distinct t from Team t join fetch t.members";
-
-            List<Team> resultList = em.createQuery(qlString, Team.class)
-                    .setFirstResult(0).setMaxResults(10)
-                    .getResultList();
-
-            for (Team team : resultList) {
-                System.out.println("team.getName() = " + team.getName() + "| member = " + team.getMembers().size());
-
-                for (Member member : team.getMembers()) {
-                    System.out.println("member.username = " + member.getUsername());
-                }
-
-            }
+////            // N + 1 쿼리
+////            String qlString = "select t from Team t";
+////            // N : 1 로 쿼리
+////            String qlString = "select m from Member m join fetch m.team";
+////            String qlString = "select distinct t from Team t join fetch t.members";
+//
+//            List<Team> resultList = em.createQuery(qlString, Team.class)
+//                    .setFirstResult(0).setMaxResults(10)
+//                    .getResultList();
+//
+//            for (Team team : resultList) {
+//                System.out.println("team.getName() = " + team.getName() + "| member = " + team.getMembers().size());
+//
+//                for (Member member : team.getMembers()) {
+//                    System.out.println("member.username = " + member.getUsername());
+//                }
+//
+//            }
 
 
             // 지연 로딩 없이 즉시 조인
